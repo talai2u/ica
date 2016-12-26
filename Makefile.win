@@ -1,0 +1,32 @@
+# Project: IAprojet
+# Makefile created by Dev-C++ 5.4.0
+
+CPP      = g++.exe
+CC       = gcc.exe
+WINDRES  = windres.exe
+OBJ      = SetUpParams.o Problem.o $(RES)
+LINKOBJ  = SetUpParams.o Problem.o $(RES)
+LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc -mwindows
+INCS     = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include"
+CXXINCS  = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include"
+BIN      = IAprojet.exe
+CXXFLAGS = $(CXXINCS) 
+CFLAGS   = $(INCS) 
+RM       = rm -f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before $(BIN) all-after
+
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CPP) $(LINKOBJ) -o $(BIN) $(LIBS)
+
+SetUpParams.o: SetUpParams.cpp
+	$(CPP) -c SetUpParams.cpp -o SetUpParams.o $(CXXFLAGS)
+
+Problem.o: Problem.cpp
+	$(CPP) -c Problem.cpp -o Problem.o $(CXXFLAGS)
