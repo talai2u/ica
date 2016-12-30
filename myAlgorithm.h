@@ -4,6 +4,7 @@
 #include <fstream>
 #include <math.h>
 #include <vector>
+
 using namespace std;
 
 //=======================================================================
@@ -20,8 +21,8 @@ using namespace std;
 		bool operator!=(const Problem& pbm) const;
 
 		int dimension() const;		
-		vector<double> LowerLimit ;
-        vector<double> UpperLimit;
+		vector<double> LowerLimit() const;
+        vector<double> UpperLimit() const;
 
 	private:
 
@@ -33,7 +34,7 @@ using namespace std;
 //=======================================================================
 class Solution
   {
-	//contient la déclaration d'une solution
+	//contient la dÃ©claration d'une solution
 	public:
 		Solution (const Problem& pbm);
 		Solution (const Solution& sol);
@@ -66,16 +67,16 @@ class Solution
 	    double getImperialistCost();
 	    void setTotalCost(double totalCost);
 	    void setImperialistCost(double imperialistCost);
-	    void setColoniesPosition(vector< vector<double> > coloniesPosition);
+	    void setColoniesPosition(double **coloniesPosition);
 
 	private:
         vector<double> _solution;
         double _current_fitness;                  
 		const Problem& _pbm;
-		vector<vector<double>> coloniesPosition;
+		double **coloniesPosition;
      	vector<double> coloniesCost;
 	    int problemDimension;
-	    vector<double> imperialistPosition(problemDimension);
+	    vector<double> imperialistPosition;
 	    double imperialistCost;
 	    double totalCost;
   };
@@ -84,7 +85,7 @@ class Solution
 
    class SetUpParams
   {
-  	//ici vous devez mettre quelques paramètres tels que :
+  	//ici vous devez mettre quelques paramÃ¨tres tels que :
   	public:
 		SetUpParams ();
 		~SetUpParams();
@@ -134,12 +135,12 @@ class Solution
   {
     private:
 
-         double dampRatio = 0.99; // The damp ratio
-	     boolean stopIfJustOneEmpire = false;  // Use "true" to stop the algorithm when just one empire is remaining. Use "false" to continue the algorithm
-	     double unitingThreshold = 0.02;  // The percent of search space size, which enables the uniting process of two empires
-         int numOfDecades = 10000;	// Number of decades (generations)
+		double dampRatio = 0.99; // The damp ratio
+		bool stopIfJustOneEmpire = false;  // Use "true" to stop the algorithm when just one empire is remaining. Use "false" to continue the algorithm
+		double unitingThreshold = 0.02;  // The percent of search space size, which enables the uniting process of two empires
+		int numOfDecades = 10000;	// Number of decades (generations)
         
-		srand((unsigned int)seed); 
+		srand(unsigned int seed); 
 		Solution* fitnessFunc;
         int problemDimension ;
         vector<double> minBounds;	// Minimum bounds
@@ -147,8 +148,8 @@ class Solution
         vector<double> initialCosts;//le cout du pays initiale
         vector<vector<double> > initialcountries; //the initiale countries withe theirs countries
         vector<vector<double> > bestDecadePosition; // The best found position for each decade
-        vector<double> minimumCost(numOfDecades) ;// le cout minimum pour chaque  decennie  = new double[numOfDecades];
-        vector<double> meanCost(numOfDecades) ; //le cout moyenne de chaque décennie
+        vector<double> minimumCost;// le cout minimum pour chaque  decennie  = new double[numOfDecades];
+        vector<double> meanCost; //le cout moyenne de chaque dÃ©cennie
         vector<double> searchSpaceSize;	//chercher la taille entre le min et le maxx du limite 
           
           
@@ -165,29 +166,29 @@ class Solution
     	long seed = millis.count();
         double runICA(int maxEvals);
         double generateNewCountries(int numberOfCountries, int dimension, 
-            vector <double> minVector, vector <double> maxVector, int rand);
+        vector <double> minVector, vector <double> maxVector, int rand);
 	
     public:
-		MyAlgorithm(const Problem& pbm,/*const SetUpParams& setup*/); 
+		MyAlgorithm(const Problem& pbm);/*const SetUpParams& setup*/
 		~MyAlgorithm();
 		double getCountriesCosts(vector<vector<double> > countriesArray);
 		void sortArray(vector<double> arrayToSort, vector<vector<double> >matchingArray);
         void createInitialEmpires();
         void assimilateColonies(Problem* theEmpire);
-        void revolveColonies(Empire theEmpire);
+        void revolveColonies(Problem theProblem);
         void possesEmpire(Solution * theEmpire);
         void uniteSimilarEmpires();
         double getColonyCostsOfUnitedEmpire(int betterEmpireInd, int worseEmpireInd);
         double getColonyPositionOfUnitedEmpire(int betterEmpireInd,int worseEmpireInd);
         void  imperialisticCompetition();
-        double removeColonyPosition(vector<vector<double>> colonyPositions, int indexToRemove);
+        double removeColonyPosition(vector< vector<double> > colonyPositions, int indexToRemove);
         double removeColonyCost(vector<double> colonyCosts, int indexToRemove);
         double concatenatePositions(vector <vector<double> > positions1, vector <double> position2);
         double concatenateCots(vector<double> costs1, double costs);
         void deleteAnEmpire(int indexToDelete);
         int selectAnEmpire(vector<double> probability);
         void  reset();
-        String getDetails();
+        string getDetails();
         string getName();	
 		//friend ostream& operator<< (ostream& os, const MyAlgorithm& myAlgo);
 		//friend istream& operator>> (istream& is, MyAlgorithm& myAlgo);
@@ -225,11 +226,11 @@ class Solution
 			 double extractArrayRange(vector <vector<double> > array, int startIndex, int endIndex);
 			 double extractGivenArrayParts(vector <vector<double> > array, vector <int> selectedIndexes);
              double extractGivenArrayParts(vector <double> array, vector <int> selectedIndexes);
-			 void printArray(String arrayName, vector <double> array);
-			 void printArray(String arrayName, vector <vector<double> > array);
-		   	 void printArray(String arrayName, vector <int> array);
-			 void printEmpire(Empire empire, int empireIndex);
-			 int getTotalColoniesCount(vector <Empire> empiresList);
+			 void printArray(string arrayName, vector <double> array);
+			 void printArray(string arrayName, vector <vector<double> > array);
+		   	 void printArray(string arrayName, vector <int> array);
+			 void printProblem(Problem problem, int problemIndex);
+			 int getTotalColoniesCount(vector <Problem> problemsList);
 
         private:
         	Utils* utils;

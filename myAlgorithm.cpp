@@ -38,7 +38,7 @@ using namespace std ;
     initialCosts = getCountriesCosts(initialCountries);
     
     // Sort the costs and the corresponding countries in assending order. The best countries will be in higher places.
-    // @todo à compléter ..
+    // @todo Ã  complÃ©ter ..
     sortArray(initialCosts, initialCountries);
     
     // Create the initial empires
@@ -131,7 +131,7 @@ void MyAlgorithm::createInitialEmpires()
     vector<double> allImperialistsPosition = utils.extractArrayRange(initialCountries, 0, numOfInitialImperialists);
     
     vector<double> allImperialistsCost(numOfInitialImperialists);
-    // copy est l'�quivalent de arraycopy in  c++ , a verifier !!!
+    // copy est l'équivalent de arraycopy in  c++ , a verifier !!!
     //System.arraycopy(initialCosts, 0, allImperialistsCost, 0, numOfInitialImperialists);
        Array::Copy(initialCosts, 0, allImperialistsCost, 0, numOfInitialImperialists);
     
@@ -174,7 +174,7 @@ void MyAlgorithm::createInitialEmpires()
     allImperialistNumOfColonies[allImperialistNumOfColonies.size()-1] = 
  
     // Arrays.copyOfRange il est faite dans les autres exemple avec une boucle mais 
-	 //dans ce cas on peux pas faire une for dans la methode getsum , a v�rifier !!!!!!
+	 //dans ce cas on peux pas faire une for dans la methode getsum , a vérifier !!!!!!
     std::max(   
                 numOfAllColonies - 
                 utils.getSum(Arrays.copyOfRange(allImperialistNumOfColonies, 0, allImperialistNumOfColonies.size()-1)),

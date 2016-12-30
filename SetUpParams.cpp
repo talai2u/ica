@@ -39,7 +39,7 @@ void SetUpParams::nb_evolution_steps(const unsigned int val)	{	 _nb_evolution_st
 void SetUpParams::population_size(const unsigned int val)	{	 _population_size = val;}
 void SetUpParams::solution_size(const unsigned int val)		{	 _solution_size = val;}
 void SetUpParams::maxCost(const unsigned val ){ _maxCost=val;   }
-void SetUpParams::numOfinitialImperialists(const unsigned val ){ _numOfinitialImperalists=val;   }
+void SetUpParams::numOfinitialImperialists(const unsigned val ){ _numOfinitialImperialists=val;   }
 void SetUpParams::numOfcountries(const unsigned val){ _numOfcountries=val;}
 //void SetUpParams::imperliastCost(const double val ){ _imperalistCost=val;   }
 
